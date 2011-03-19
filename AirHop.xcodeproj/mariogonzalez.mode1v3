@@ -276,7 +276,6 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>10</integer>
 									<integer>5</integer>
 									<integer>0</integer>
 								</array>
@@ -329,7 +328,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>ED63541313349E9800915BCA</string>
+										<string>ED6354D81334A19400915BCA</string>
 										<key>history</key>
 										<array>
 											<string>ED7E54C61332ED3300C02A0E</string>
@@ -397,7 +396,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>HelloWorldLayer.mm</string>
+								<string>Cocos2DViewController.mm</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -405,11 +404,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>HelloWorldLayer.mm</string>
+										<string>Cocos2DViewController.mm</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>ED63541413349E9800915BCA</string>
+										<string>ED6354D91334A19400915BCA</string>
 										<key>history</key>
 										<array>
 											<string>ED7E54C61332ED3300C02A0E</string>
@@ -436,22 +435,22 @@
 											<string>ED6350AA1334718F00915BCA</string>
 											<string>ED6351161334760100915BCA</string>
 											<string>ED6351A113347C0500915BCA</string>
-											<string>ED6351A513347C0500915BCA</string>
-											<string>ED6351C113347DB600915BCA</string>
 											<string>ED6351F613347EBC00915BCA</string>
 											<string>ED63529B133495C400915BCA</string>
 											<string>ED63529C133495C400915BCA</string>
 											<string>ED63529D133495C400915BCA</string>
-											<string>ED6352A0133495C400915BCA</string>
 											<string>ED6352C4133498CB00915BCA</string>
 											<string>ED6352EA1334995000915BCA</string>
-											<string>ED63539013349C4B00915BCA</string>
-											<string>ED63539613349C7000915BCA</string>
 											<string>ED6353C613349D3800915BCA</string>
 											<string>ED63540613349E5E00915BCA</string>
 											<string>ED63540713349E5E00915BCA</string>
 											<string>ED63540813349E5E00915BCA</string>
-											<string>ED63540913349E5E00915BCA</string>
+											<string>ED6354881334A08600915BCA</string>
+											<string>ED6354C11334A15400915BCA</string>
+											<string>ED6354C21334A15400915BCA</string>
+											<string>ED6354C31334A15400915BCA</string>
+											<string>ED6354CD1334A19300915BCA</string>
+											<string>ED6354CE1334A19300915BCA</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>

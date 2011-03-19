@@ -176,6 +176,8 @@ enum {
 			int idy = (CCRANDOM_0_1() > .5 ? 0:1);
 			CCSprite *sprite = [CCSprite spriteWithBatchNode:batch rect:CGRectMake(32 * idx,32 * idy,32,32)];
 			[batch addChild:sprite];
+//			CCSprite *sprite = [CCSprite spriteWithFile:@"balloon.png"];
+//			[self addChild:sprite];
 			
 			// Position at X,Y + a magic number buffer
 			sprite.position = ccp( x+sprite.contentSize.width*0.5, z );
@@ -288,7 +290,10 @@ enum {
 	
 	// UPDATE PERLIN
 	static float zVar = 0.0;
-	zVar += 0.003;
+	static float zprimeVar = 0.0f;
+	zVar += 0.005;
+	
+	
 	
 	NSUInteger x,z;
 	NSUInteger spacing = 20;
@@ -297,6 +302,7 @@ enum {
 	{
 		for (z = 0; z < cMapHeight; z+=spacing) 
 		{
+			//zprimeVar += 0.000005;
 			//			// Create a new sprite
 			//			CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [self getChildByTag:kTagBatchNode];
 			
@@ -310,8 +316,8 @@ enum {
 //			sprite.position = ccp( x, z );
 //			sprite.tag = anIterator;
 			
-			float downScale = 0.002f;
-			float noiseAtPosition = _msaNoise->get(x*downScale-zVar, z*downScale, 0);
+			float downScale = 0.004f;
+			float noiseAtPosition = _msaNoise->get(x*downScale, z*downScale, zVar);
 			noiseAtPosition = (noiseAtPosition + _msaNoise->mAmplitude*0.5) / _msaNoise->mAmplitude;	// Normalize noise
 			
 //			if(x == 0) {
