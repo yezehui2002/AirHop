@@ -26,21 +26,7 @@ enum {
 
 // HelloWorldLayer implementation
 @implementation HelloWorldLayer
-
-+(CCScene *) scene
-{
-	// 'scene' is an autorelease object.
-	CCScene *scene = [CCScene node];
-	
-	// 'layer' is an autorelease object.
-	HelloWorldLayer *layer = [HelloWorldLayer node];
-	
-	// add layer as a child to scene
-	[scene addChild: layer];
-	
-	// return the scene
-	return scene;
-}
+@synthesize _noise;
 
 // on "init" you need to initialize your instance
 -(id) init
@@ -51,18 +37,42 @@ enum {
 		
 		// enable touches
 		self.isTouchEnabled = YES;
+		self.isAccelerometerEnabled = YES;
+
+		[self setupNoise];
 	}
 	return self;
 }
 
--(void) initializeWorldWithFrame:(CGRect)aFrame
+-(void) setupNoise
 {
-	// enable accelerometer
-	self.isAccelerometerEnabled = YES;
+	// Initialize SKMathPerlin instance
+	SKMathPerlin *perlin = [[SKMathPerlin alloc] init];
+	[perlin setOctaves:cPerlinOctaves];
+	[perlin setFrequency:cPerlinFrequency];
+	[perlin setPersistence:cPerlinPersistence];
 	
-	CGSize screenSize = aFrame.size;//[CCDirector sharedDirector].winSize;
-	CCLOG(@"Screen width %0.2f screen height %0.2f",screenSize.width,screenSize.height);
+	self._noise = perlin;
+	[perlin release];
 	
+	// Generate 2D noise map
+	NSUInteger x, z;
+	for (x = 0; x < cMapWidth; x++) 
+	{
+		for (z = 0; z < cMapHeight; z++) 
+		{
+			map[x][z] = [perlin perlinNoise2DX:x Y:z];
+			
+//			if(x == 100) {
+//				float fffff = map[x][z];
+//				NSLog(@"z: %f", map[x][z]);
+//			}
+		}
+	}
+}
+
+-(void) setupBox2DWithFrame:(CGRect)aFrame
+{
 	// Define the gravity vector.
 	b2Vec2 gravity;
 	gravity.Set(0.0f, -10.0f);
@@ -102,33 +112,66 @@ enum {
 	b2PolygonShape groundBox;		
 	
 	// bottom
-	groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(screenSize.width/PTM_RATIO,0));
+	groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(aFrame.size.width/PTM_RATIO,0));
 	groundBody->CreateFixture(&groundBox,0);
 	
 	// top
-	groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO));
+	groundBox.SetAsEdge(b2Vec2(0,aFrame.size.height/PTM_RATIO), b2Vec2(aFrame.size.width/PTM_RATIO,aFrame.size.height/PTM_RATIO));
 	groundBody->CreateFixture(&groundBox,0);
 	
 	// left
-	groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(0,0));
+	groundBox.SetAsEdge(b2Vec2(0,aFrame.size.height/PTM_RATIO), b2Vec2(0,0));
 	groundBody->CreateFixture(&groundBox,0);
 	
 	// right
-	groundBox.SetAsEdge(b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,0));
+	groundBox.SetAsEdge(b2Vec2(aFrame.size.width/PTM_RATIO,aFrame.size.height/PTM_RATIO), b2Vec2(aFrame.size.width/PTM_RATIO,0));
 	groundBody->CreateFixture(&groundBox,0);
+}
+
+-(void) initializeWorldWithFrame:(CGRect)aFrame
+{
+	CCLOG(@"Screen width %0.2f screen height %0.2f",aFrame.size.width, aFrame.size.height);
 	
-	
+	[self setupBox2DWithFrame:aFrame];
+
 	//Set up sprite
-	
 	CCSpriteBatchNode *batch = [CCSpriteBatchNode batchNodeWithFile:@"blocks.png" capacity:150];
 	[self addChild:batch z:0 tag:kTagBatchNode];
 	
-	[self addNewSpriteWithCoords:ccp(screenSize.width/2, screenSize.height/2)];
+//	[self addNewSpriteWithCoords:ccp(screenSize.width/2, screenSize.height/2)];
 	
 //	CCLabelTTF *label = [CCLabelTTF labelWithString:@"Tap screen" fontName:@"Marker Felt" fontSize:32];
 //	[self addChild:label z:0];
 //	[label setColor:ccc3(0,0,255)];
 //	label.position = ccp( screenSize.width/2, screenSize.height-50);
+	
+//	for
+	
+//	NSLog(@"noiseAtPosition %f", noiseAtPosition);
+	NSUInteger x,z;
+	NSUInteger spacing = 10;
+	for (x = 0; x < cMapWidth; x+=spacing) 
+	{
+		for (z = 0; z < cMapHeight; z+=spacing) 
+		{
+			// Create a new sprite
+			CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [self getChildByTag:kTagBatchNode];
+			
+			// We have a 64x64 sprite sheet with 4 different 32x32 images.  The following code is just randomly picking one of the images
+			int idx = (CCRANDOM_0_1() > .5 ? 0:1);
+			int idy = (CCRANDOM_0_1() > .5 ? 0:1);
+			CCSprite *sprite = [CCSprite spriteWithBatchNode:batch rect:CGRectMake(32 * idx,32 * idy,32,32)];
+			[batch addChild:sprite];
+			
+			// Position at X,Y + a magic number buffer
+			sprite.position = ccp( x + spacing*2, z );
+			
+			CGFloat noiseAtPosition = map[x][z];
+			noiseAtPosition = (noiseAtPosition + 1.0) / 2.0;	// Normalize noise
+			
+			sprite.scale = noiseAtPosition * 0.5;
+		}
+	}
 	
 	[self schedule: @selector(tick:)];
 }
@@ -155,7 +198,6 @@ enum {
 {
 	CCLOG(@"Add sprite %0.2f x %02.f",p.x,p.y);
 	
-//	BaseObject* anObject = [[[ObjectClass alloc] initWithFile: itemInfo.cocosImageFileName] autorelease];
 //	CCSprite* aSprite = [CCSprite spriteWithFile:@"balloon.png"];
 //	[self addChild: aSprite];
 //	
@@ -256,6 +298,7 @@ enum {
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc
 {
+	self._noise = nil;
 	// in case you have something to dealloc, do it in this method
 	delete world;
 	world = NULL;

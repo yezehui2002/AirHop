@@ -323,6 +323,8 @@
 		ED634E501334383900915BCA /* Cocos2DViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED634E4E1334383900915BCA /* Cocos2DViewController.xib */; };
 		ED634F8D13345AEB00915BCA /* balloon-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = ED634F8C13345AEB00915BCA /* balloon-hd.png */; };
 		ED634FAC13345C7700915BCA /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = ED634FAB13345C7700915BCA /* balloon.png */; };
+		ED635082133470B000915BCA /* SKMathPerlin.m in Sources */ = {isa = PBXBuildFile; fileRef = ED63507F133470B000915BCA /* SKMathPerlin.m */; };
+		ED635083133470B000915BCA /* SKMathVector.m in Sources */ = {isa = PBXBuildFile; fileRef = ED635081133470B000915BCA /* SKMathVector.m */; };
 		ED7E54701332E23900C02A0E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED7E546F1332E23900C02A0E /* MainWindow.xib */; };
 		ED7E54821332E46000C02A0E /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED7E54811332E46000C02A0E /* RootViewController.xib */; };
 /* End PBXBuildFile section */
@@ -659,6 +661,10 @@
 		ED634E4E1334383900915BCA /* Cocos2DViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Cocos2DViewController.xib; sourceTree = "<group>"; };
 		ED634F8C13345AEB00915BCA /* balloon-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "balloon-hd.png"; path = "cocos/balloon-hd.png"; sourceTree = "<group>"; };
 		ED634FAB13345C7700915BCA /* balloon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = balloon.png; path = cocos/balloon.png; sourceTree = "<group>"; };
+		ED63507E133470B000915BCA /* SKMathPerlin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKMathPerlin.h; path = libs/perlinnoise/SKMathPerlin.h; sourceTree = "<group>"; };
+		ED63507F133470B000915BCA /* SKMathPerlin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKMathPerlin.m; path = libs/perlinnoise/SKMathPerlin.m; sourceTree = "<group>"; };
+		ED635080133470B000915BCA /* SKMathVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKMathVector.h; path = libs/perlinnoise/SKMathVector.h; sourceTree = "<group>"; };
+		ED635081133470B000915BCA /* SKMathVector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKMathVector.m; path = libs/perlinnoise/SKMathVector.m; sourceTree = "<group>"; };
 		ED7E546F1332E23900C02A0E /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		ED7E54811332E46000C02A0E /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RootViewController.xib; path = ../Resources/RootViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -726,6 +732,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				ED63507D133470AB00915BCA /* library */,
 				1F3B9A820EF2151B00286867 /* AirHop_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -1234,6 +1241,25 @@
 			name = cocos;
 			sourceTree = "<group>";
 		};
+		ED63507D133470AB00915BCA /* library */ = {
+			isa = PBXGroup;
+			children = (
+				ED6350CF1334733000915BCA /* perlinnoise */,
+			);
+			name = library;
+			sourceTree = "<group>";
+		};
+		ED6350CF1334733000915BCA /* perlinnoise */ = {
+			isa = PBXGroup;
+			children = (
+				ED63507E133470B000915BCA /* SKMathPerlin.h */,
+				ED63507F133470B000915BCA /* SKMathPerlin.m */,
+				ED635080133470B000915BCA /* SKMathVector.h */,
+				ED635081133470B000915BCA /* SKMathVector.m */,
+			);
+			name = perlinnoise;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1491,6 +1517,8 @@
 				50F4143910692D7D002A0D5E /* GLES-Render.mm in Sources */,
 				E0F81064120A17DF005866B8 /* RootViewController.mm in Sources */,
 				ED634E4F1334383900915BCA /* Cocos2DViewController.mm in Sources */,
+				ED635082133470B000915BCA /* SKMathPerlin.m in Sources */,
+				ED635083133470B000915BCA /* SKMathVector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
