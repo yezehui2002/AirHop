@@ -7,11 +7,6 @@
 //
 
 //#import <Cocoa/Cocoa.h>
-
-#define cPerlinOctaves		4
-#define cPerlinFrequency	0.05f
-#define cPerlinPersistence	0.2f
-
 @interface SKMathPerlin : NSObject 
 {
 	CGFloat octaves;

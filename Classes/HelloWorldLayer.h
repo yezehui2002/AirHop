@@ -22,12 +22,19 @@
 	b2World*			world;
 	GLESDebugDraw*		m_debugDraw;
 	
+	CCSpriteBatchNode*	_batch;
+	
+	// Noise properties
+	int					cPerlinOctaves;
+	float				cPerlinFrequency;
+	float				cPerlinPersistence;
 	SKMathPerlin*		_noise;
 	CGFloat				map[cMapWidth][cMapHeight];
 }
 
 #pragma mark Properties
 @property(nonatomic, retain) SKMathPerlin* _noise;
+@property(nonatomic, retain) CCSpriteBatchNode*	_batch;
 
 #pragma mark Methods
 -(void) initializeWorldWithFrame:(CGRect)aFrame;
@@ -36,5 +43,8 @@
 
 // adds a new sprite at a given coordinate
 -(void) addNewSpriteWithCoords:(CGPoint)p;
+
+#pragma mark Debug
+-(void) debugCreatePerlinGrid;
 
 @end

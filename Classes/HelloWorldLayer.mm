@@ -26,6 +26,7 @@ enum {
 
 // HelloWorldLayer implementation
 @implementation HelloWorldLayer
+@synthesize _batch;
 @synthesize _noise;
 
 // on "init" you need to initialize your instance
@@ -39,7 +40,11 @@ enum {
 		self.isTouchEnabled = YES;
 		self.isAccelerometerEnabled = YES;
 
-		[self setupNoise];
+		cPerlinOctaves		= 4;
+		cPerlinFrequency	= 0.05f;
+		cPerlinPersistence	= 0.2f;
+		
+//		[self setupNoise];
 	}
 	return self;
 }
@@ -64,7 +69,6 @@ enum {
 			map[x][z] = [perlin perlinNoise2DX:x Y:z];
 			
 //			if(x == 100) {
-//				float fffff = map[x][z];
 //				NSLog(@"z: %f", map[x][z]);
 //			}
 		}
@@ -131,25 +135,26 @@ enum {
 -(void) initializeWorldWithFrame:(CGRect)aFrame
 {
 	CCLOG(@"Screen width %0.2f screen height %0.2f",aFrame.size.width, aFrame.size.height);
-	
 	[self setupBox2DWithFrame:aFrame];
+	[self debugCreatePerlinGrid];
+	[self schedule: @selector(tick:)];
+}
 
+-(void) debugCreatePerlinGrid
+{
+	cPerlinFrequency += 0.001f;
+	[self setupNoise];
+	[self removeAllChildrenWithCleanup:YES];
+	
 	//Set up sprite
 	CCSpriteBatchNode *batch = [CCSpriteBatchNode batchNodeWithFile:@"blocks.png" capacity:150];
 	[self addChild:batch z:0 tag:kTagBatchNode];
+	self._batch = batch;
 	
-//	[self addNewSpriteWithCoords:ccp(screenSize.width/2, screenSize.height/2)];
-	
-//	CCLabelTTF *label = [CCLabelTTF labelWithString:@"Tap screen" fontName:@"Marker Felt" fontSize:32];
-//	[self addChild:label z:0];
-//	[label setColor:ccc3(0,0,255)];
-//	label.position = ccp( screenSize.width/2, screenSize.height-50);
-	
-//	for
-	
-//	NSLog(@"noiseAtPosition %f", noiseAtPosition);
+	// Create a grid, scale each sprite based on noise
 	NSUInteger x,z;
-	NSUInteger spacing = 10;
+	NSUInteger spacing = 30;
+	NSUInteger anIterator = 0;
 	for (x = 0; x < cMapWidth; x+=spacing) 
 	{
 		for (z = 0; z < cMapHeight; z+=spacing) 
@@ -164,17 +169,19 @@ enum {
 			[batch addChild:sprite];
 			
 			// Position at X,Y + a magic number buffer
-			sprite.position = ccp( x + spacing*2, z );
+			sprite.position = ccp( x, z );
+			sprite.tag = anIterator;
 			
-			CGFloat noiseAtPosition = map[x][z];
+//			CGFloat noiseAtPosition = map[x][z];
+			CGFloat noiseAtPosition = [_noise perlinNoise2DX:x Y:z];
 			noiseAtPosition = (noiseAtPosition + 1.0) / 2.0;	// Normalize noise
 			
-			sprite.scale = noiseAtPosition * 0.5;
+			sprite.scale = noiseAtPosition;
+			anIterator++;
 		}
 	}
-	
-	[self schedule: @selector(tick:)];
 }
+
 
 -(void) draw
 {
@@ -238,6 +245,8 @@ enum {
 
 -(void) tick: (ccTime) dt
 {
+	
+	
 	//It is recommended that a fixed time step is used with Box2D for stability
 	//of the simulation, however, we are using a variable time step here.
 	//You need to make an informed choice, the following URL is useful
@@ -260,6 +269,45 @@ enum {
 			myActor.position = CGPointMake( b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO);
 			myActor.rotation = -1 * CC_RADIANS_TO_DEGREES(b->GetAngle());
 		}	
+	}
+	
+	
+//	cPerlinFrequency += 0.0005f;
+//	[_noise setFrequency:cPerlinFrequency];
+	
+	static int xOffset = 0;
+	static int yOffset = 0;
+	xOffset += -5;
+	yOffset += 4;
+	
+	
+	NSUInteger x,z;
+	NSUInteger spacing = 30;
+	NSUInteger anIterator = 0;
+	for (x = 0; x < cMapWidth; x+=spacing) 
+	{
+		for (z = 0; z < cMapHeight; z+=spacing) 
+		{
+			//			// Create a new sprite
+			//			CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [self getChildByTag:kTagBatchNode];
+			
+			//			// We have a 64x64 sprite sheet with 4 different 32x32 images.  The following code is just randomly picking one of the images
+			//			int idx = (CCRANDOM_0_1() > .5 ? 0:1);
+			//			int idy = (CCRANDOM_0_1() > .5 ? 0:1);
+			CCSprite *sprite = (CCSprite*) [_batch getChildByTag:anIterator];
+			//			[batch addChild:sprite];
+			//			
+			// Position at X,Y + a magic number buffer
+			sprite.position = ccp( x, z );
+			sprite.tag = anIterator;
+			
+			//			CGFloat noiseAtPosition = map[x][z];
+			CGFloat noiseAtPosition = [_noise perlinNoise2DX:x+xOffset Y:z+yOffset];
+			noiseAtPosition = (noiseAtPosition + 1.0) / 2.0;	// Normalize noise
+			
+			sprite.scale = noiseAtPosition * 2;
+			anIterator++;
+		}
 	}
 }
 

@@ -57,6 +57,9 @@
 	 return shouldRotate;
  }
 
+-(IBAction) redrawGrid {
+	[self._cocosViewController._currentLayer debugCreatePerlinGrid];
+}
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.

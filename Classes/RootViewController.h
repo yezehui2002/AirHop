@@ -17,4 +17,5 @@
 @property(nonatomic, retain) IBOutlet UIToolbar*		_toolbar;
 @property(nonatomic, retain) Cocos2DViewController*		_cocosViewController;
 
+-(IBAction) redrawGrid;
 @end

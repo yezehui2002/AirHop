@@ -19,6 +19,8 @@
 
 
 @implementation Cocos2DViewController
+@synthesize _currentLayer;
+
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
  - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -169,6 +171,7 @@
 	
 	// 'layer' is an autorelease object.
 	HelloWorldLayer *aHelloWorldScene = [HelloWorldLayer node];	// Create the scene that contains our game world
+	self._currentLayer = aHelloWorldScene;						// Store reference
 	[scene addChild: aHelloWorldScene];							// add layer as a child to scene
 		
 	[aHelloWorldScene initializeWorldWithFrame: aFrame ];

@@ -42,7 +42,7 @@
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIToolbar" id="510785027">
+					<object class="IBUIToolbar" id="464440852">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">266</int>
 						<string key="NSFrame">{{0, 256}, {480, 44}}</string>
@@ -52,10 +52,10 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<object class="NSMutableArray" key="IBUIItems">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIBarButtonItem" id="595942489">
+							<object class="IBUIBarButtonItem" id="100575">
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIStyle">1</int>
-								<reference key="IBUIToolbar" ref="510785027"/>
+								<reference key="IBUIToolbar" ref="464440852"/>
 								<int key="IBUISystemItemIdentifier">17</int>
 							</object>
 						</object>
@@ -92,9 +92,17 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">_toolbar</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="510785027"/>
+						<reference key="destination" ref="464440852"/>
 					</object>
 					<int key="connectionID">11</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">redrawGrid</string>
+						<reference key="source" ref="100575"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">12</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -111,7 +119,7 @@
 						<reference key="object" ref="191373211"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="510785027"/>
+							<reference ref="464440852"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -128,17 +136,17 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">9</int>
-						<reference key="object" ref="510785027"/>
+						<reference key="object" ref="464440852"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="595942489"/>
+							<reference ref="100575"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">10</int>
-						<reference key="object" ref="595942489"/>
-						<reference key="parent" ref="510785027"/>
+						<reference key="object" ref="100575"/>
+						<reference key="parent" ref="464440852"/>
 					</object>
 				</object>
 			</object>
@@ -183,7 +191,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">11</int>
+			<int key="maxID">12</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -209,6 +217,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">RootViewController</string>
 					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">redrawGrid</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">redrawGrid</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">redrawGrid</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">_toolbar</string>
 						<string key="NS.object.0">UIToolbar</string>

@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "HelloWorldLayer.h"
 
 @interface Cocos2DViewController : UIViewController {
+	HelloWorldLayer*	_currentLayer;
 }
+@property(nonatomic, retain) HelloWorldLayer* _currentLayer;
 
 -(void) initCocos2DWithFrame:(CGRect)aFrame;
 @end

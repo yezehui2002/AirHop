@@ -341,8 +341,8 @@
 
 /* Begin PBXFileReference section */
 		1D6058910D05DD3D006BFB54 /* AirHop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirHop.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1F3B9A2B0EF2145700286867 /* AirHopAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AirHopAppDelegate.mm; sourceTree = "<group>"; };
-		1F3B9A2C0EF2145700286867 /* AirHopAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AirHopAppDelegate.h; path = Classes/AirHopAppDelegate.h; sourceTree = SOURCE_ROOT; };
+		1F3B9A2B0EF2145700286867 /* AirHopAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AirHopAppDelegate.mm; path = Classes/AirHopAppDelegate.mm; sourceTree = "<group>"; };
+		1F3B9A2C0EF2145700286867 /* AirHopAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AirHopAppDelegate.h; path = Classes/AirHopAppDelegate.h; sourceTree = "<group>"; };
 		1F3B9A820EF2151B00286867 /* AirHop_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirHop_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		504DFC0010AF1414006D82FE /* CLScoreServerPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLScoreServerPost.h; sourceTree = "<group>"; };
@@ -733,6 +733,8 @@
 			isa = PBXGroup;
 			children = (
 				ED63507D133470AB00915BCA /* library */,
+				1F3B9A2C0EF2145700286867 /* AirHopAppDelegate.h */,
+				1F3B9A2B0EF2145700286867 /* AirHopAppDelegate.mm */,
 				1F3B9A820EF2151B00286867 /* AirHop_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -769,8 +771,6 @@
 				ED634E4C1334383900915BCA /* Cocos2DViewController.h */,
 				ED634E4D1334383900915BCA /* Cocos2DViewController.mm */,
 				ED634E4E1334383900915BCA /* Cocos2DViewController.xib */,
-				1F3B9A2C0EF2145700286867 /* AirHopAppDelegate.h */,
-				1F3B9A2B0EF2145700286867 /* AirHopAppDelegate.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
