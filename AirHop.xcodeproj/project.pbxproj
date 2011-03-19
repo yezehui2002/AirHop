@@ -325,6 +325,7 @@
 		ED634FAC13345C7700915BCA /* balloon.png in Resources */ = {isa = PBXBuildFile; fileRef = ED634FAB13345C7700915BCA /* balloon.png */; };
 		ED635082133470B000915BCA /* SKMathPerlin.m in Sources */ = {isa = PBXBuildFile; fileRef = ED63507F133470B000915BCA /* SKMathPerlin.m */; };
 		ED635083133470B000915BCA /* SKMathVector.m in Sources */ = {isa = PBXBuildFile; fileRef = ED635081133470B000915BCA /* SKMathVector.m */; };
+		ED6352941334956D00915BCA /* MSAPerlin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED6352931334956D00915BCA /* MSAPerlin.cpp */; };
 		ED7E54701332E23900C02A0E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED7E546F1332E23900C02A0E /* MainWindow.xib */; };
 		ED7E54821332E46000C02A0E /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED7E54811332E46000C02A0E /* RootViewController.xib */; };
 /* End PBXBuildFile section */
@@ -665,6 +666,8 @@
 		ED63507F133470B000915BCA /* SKMathPerlin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKMathPerlin.m; path = libs/perlinnoise/SKMathPerlin.m; sourceTree = "<group>"; };
 		ED635080133470B000915BCA /* SKMathVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKMathVector.h; path = libs/perlinnoise/SKMathVector.h; sourceTree = "<group>"; };
 		ED635081133470B000915BCA /* SKMathVector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKMathVector.m; path = libs/perlinnoise/SKMathVector.m; sourceTree = "<group>"; };
+		ED6352921334956D00915BCA /* MSAPerlin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSAPerlin.h; sourceTree = "<group>"; };
+		ED6352931334956D00915BCA /* MSAPerlin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MSAPerlin.cpp; sourceTree = "<group>"; };
 		ED7E546F1332E23900C02A0E /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		ED7E54811332E46000C02A0E /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RootViewController.xib; path = ../Resources/RootViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1245,6 +1248,8 @@
 			isa = PBXGroup;
 			children = (
 				ED6350CF1334733000915BCA /* perlinnoise */,
+				ED6352921334956D00915BCA /* MSAPerlin.h */,
+				ED6352931334956D00915BCA /* MSAPerlin.cpp */,
 			);
 			name = library;
 			sourceTree = "<group>";
@@ -1519,6 +1524,7 @@
 				ED634E4F1334383900915BCA /* Cocos2DViewController.mm in Sources */,
 				ED635082133470B000915BCA /* SKMathPerlin.m in Sources */,
 				ED635083133470B000915BCA /* SKMathVector.m in Sources */,
+				ED6352941334956D00915BCA /* MSAPerlin.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,7 @@
 #import "Box2D.h"
 #import "GLES-Render.h"
 #import "SKMathPerlin.h"
+#import "MSAPerlin.h"
 
 #define cMapWidth 480
 #define cMapHeight 320
@@ -23,6 +24,8 @@
 	GLESDebugDraw*		m_debugDraw;
 	
 	CCSpriteBatchNode*	_batch;
+	
+	MSA::Perlin*				_msaNoise;
 	
 	// Noise properties
 	int					cPerlinOctaves;

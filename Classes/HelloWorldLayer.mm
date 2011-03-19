@@ -44,6 +44,8 @@ enum {
 		cPerlinFrequency	= 0.05f;
 		cPerlinPersistence	= 0.2f;
 		
+		
+		
 //		[self setupNoise];
 	}
 	return self;
@@ -51,6 +53,9 @@ enum {
 
 -(void) setupNoise
 {
+	_msaNoise = new MSA::Perlin( 4, 2, 4, 1 ); 
+//	_msaNoise->setup( );
+//				void setup(int octaves = 4, float freq = 2, float amp = 0.5f, int seed = 1);
 	// Initialize SKMathPerlin instance
 	SKMathPerlin *perlin = [[SKMathPerlin alloc] init];
 	[perlin setOctaves:cPerlinOctaves];
@@ -153,8 +158,12 @@ enum {
 	
 	// Create a grid, scale each sprite based on noise
 	NSUInteger x,z;
-	NSUInteger spacing = 30;
+	NSUInteger spacing = 20;
 	NSUInteger anIterator = 0;
+	
+	/*
+	 _msaNoise->get(0.4f);
+	 */
 	for (x = 0; x < cMapWidth; x+=spacing) 
 	{
 		for (z = 0; z < cMapHeight; z+=spacing) 
@@ -169,12 +178,17 @@ enum {
 			[batch addChild:sprite];
 			
 			// Position at X,Y + a magic number buffer
-			sprite.position = ccp( x, z );
+			sprite.position = ccp( x+sprite.contentSize.width*0.5, z );
 			sprite.tag = anIterator;
 			
 //			CGFloat noiseAtPosition = map[x][z];
-			CGFloat noiseAtPosition = [_noise perlinNoise2DX:x Y:z];
+			//CGFloat noiseAtPosition = [_noise perlinNoise2DX:x Y:z];
+			float noiseAtPosition = _msaNoise->get(x, z, 0.1f);
 			noiseAtPosition = (noiseAtPosition + 1.0) / 2.0;	// Normalize noise
+			
+			if(x == 0) {
+				NSLog(@"z: %f", noiseAtPosition);
+			}
 			
 			sprite.scale = noiseAtPosition;
 			anIterator++;
@@ -272,17 +286,12 @@ enum {
 	}
 	
 	
-//	cPerlinFrequency += 0.0005f;
-//	[_noise setFrequency:cPerlinFrequency];
-	
-	static int xOffset = 0;
-	static int yOffset = 0;
-	xOffset += -5;
-	yOffset += 4;
-	
+	// UPDATE PERLIN
+	static float zVar = 0.0;
+	zVar += 0.003;
 	
 	NSUInteger x,z;
-	NSUInteger spacing = 30;
+	NSUInteger spacing = 20;
 	NSUInteger anIterator = 0;
 	for (x = 0; x < cMapWidth; x+=spacing) 
 	{
@@ -298,14 +307,18 @@ enum {
 			//			[batch addChild:sprite];
 			//			
 			// Position at X,Y + a magic number buffer
-			sprite.position = ccp( x, z );
-			sprite.tag = anIterator;
+//			sprite.position = ccp( x, z );
+//			sprite.tag = anIterator;
 			
-			//			CGFloat noiseAtPosition = map[x][z];
-			CGFloat noiseAtPosition = [_noise perlinNoise2DX:x+xOffset Y:z+yOffset];
-			noiseAtPosition = (noiseAtPosition + 1.0) / 2.0;	// Normalize noise
+			float downScale = 0.002f;
+			float noiseAtPosition = _msaNoise->get(x*downScale-zVar, z*downScale, 0);
+			noiseAtPosition = (noiseAtPosition + _msaNoise->mAmplitude*0.5) / _msaNoise->mAmplitude;	// Normalize noise
 			
-			sprite.scale = noiseAtPosition * 2;
+//			if(x == 0) {
+//				NSLog(@"z: %f", noiseAtPosition);
+//			}
+			
+			sprite.scale = noiseAtPosition * 1.5;
 			anIterator++;
 		}
 	}
