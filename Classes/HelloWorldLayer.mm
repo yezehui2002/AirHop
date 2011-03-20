@@ -53,7 +53,7 @@ enum {
 
 -(void) setupNoise
 {
-	_msaNoise = new MSA::Perlin( 4, 2, 4, 1 ); 
+	_msaNoise = new MSA::Perlin( 4, 2, 0.5, 1 ); 
 //	_msaNoise->setup( );
 //				void setup(int octaves = 4, float freq = 2, float amp = 0.5f, int seed = 1);
 	// Initialize SKMathPerlin instance
@@ -147,6 +147,11 @@ enum {
 
 -(void) debugCreatePerlinGrid
 {
+//	self._sheet = [CCSpriteSheet spriteSheetWithFile:@"boid.png" capacity:201];
+////	self.isTouchEnabled = YES;
+////	self._currentTouch = CGPointZero;
+//	[self addChild:_sheet z:0 tag:0];
+	
 	cPerlinFrequency += 0.001f;
 	[self setupNoise];
 	[self removeAllChildrenWithCleanup:YES];
@@ -154,6 +159,7 @@ enum {
 	//Set up sprite
 	CCSpriteBatchNode *batch = [CCSpriteBatchNode batchNodeWithFile:@"blocks.png" capacity:150];
 	[self addChild:batch z:0 tag:kTagBatchNode];
+	[_batch setBlendFunc:(ccBlendFunc){GL_ONE, GL_ONE}];
 	self._batch = batch;
 	
 	// Create a grid, scale each sprite based on noise
@@ -172,10 +178,13 @@ enum {
 			CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [self getChildByTag:kTagBatchNode];
 			
 			// We have a 64x64 sprite sheet with 4 different 32x32 images.  The following code is just randomly picking one of the images
-			int idx = (CCRANDOM_0_1() > .5 ? 0:1);
-			int idy = (CCRANDOM_0_1() > .5 ? 0:1);
+			int idx =  0;//(CCRANDOM_0_1() > .5 ? 0:1);
+			int idy = 0;//(CCRANDOM_0_1() > .5 ? 0:1);
 			CCSprite *sprite = [CCSprite spriteWithBatchNode:batch rect:CGRectMake(32 * idx,32 * idy,32,32)];
 			[batch addChild:sprite];
+			[sprite setBlendFunc:(ccBlendFunc){GL_ONE, GL_ONE}];
+
+			
 //			CCSprite *sprite = [CCSprite spriteWithFile:@"balloon.png"];
 //			[self addChild:sprite];
 			
@@ -186,12 +195,13 @@ enum {
 //			CGFloat noiseAtPosition = map[x][z];
 			//CGFloat noiseAtPosition = [_noise perlinNoise2DX:x Y:z];
 			float noiseAtPosition = _msaNoise->get(x, z, 0.1f);
-			noiseAtPosition = (noiseAtPosition + 1.0) / 2.0;	// Normalize noise
+			noiseAtPosition = (noiseAtPosition + _msaNoise->mAmplitude*0.5) / _msaNoise->mAmplitude;	// Normalize noise
 			
-			if(x == 0) {
-				NSLog(@"z: %f", noiseAtPosition);
-			}
+			//if(x == 0) {
+			//	NSLog(@"z: %f", noiseAtPosition);
+			//}
 			
+			sprite.color = ccc3( cos(noiseAtPosition * M_PI) * 255, sin(noiseAtPosition * M_PI) * 255, noiseAtPosition * 255 );
 			sprite.scale = noiseAtPosition;
 			anIterator++;
 		}
@@ -201,6 +211,7 @@ enum {
 
 -(void) draw
 {
+	glBlendFunc(GL_ONE, GL_ONE);
 	// Default GL sbttates: GL_TEXTURE_2D, GL_VERTEX_ARRAY, GL_COLOR_ARRAY, GL_TEXTURE_COORD_ARRAY
 	// Needed states:  GL_VERTEX_ARRAY, 
 	// Unneeded states: GL_TEXTURE_2D, GL_COLOR_ARRAY, GL_TEXTURE_COORD_ARRAY
@@ -291,7 +302,7 @@ enum {
 	// UPDATE PERLIN
 	static float zVar = 0.0;
 	static float zprimeVar = 0.0f;
-	zVar += 0.005;
+	zVar += 0.02;
 	
 	
 	
@@ -302,7 +313,7 @@ enum {
 	{
 		for (z = 0; z < cMapHeight; z+=spacing) 
 		{
-			//zprimeVar += 0.000005;
+			zprimeVar += 0.00007;
 			//			// Create a new sprite
 			//			CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [self getChildByTag:kTagBatchNode];
 			
@@ -316,15 +327,23 @@ enum {
 //			sprite.position = ccp( x, z );
 //			sprite.tag = anIterator;
 			
-			float downScale = 0.004f;
-			float noiseAtPosition = _msaNoise->get(x*downScale, z*downScale, zVar);
+			float downScale = 0.002f;
+			float noiseAtPosition = _msaNoise->get(x*downScale + zVar, z*downScale, zprimeVar);
 			noiseAtPosition = (noiseAtPosition + _msaNoise->mAmplitude*0.5) / _msaNoise->mAmplitude;	// Normalize noise
 			
 //			if(x == 0) {
 //				NSLog(@"z: %f", noiseAtPosition);
 //			}
 			
-			sprite.scale = noiseAtPosition * 1.5;
+			sprite.scale = 0.1 + noiseAtPosition * 2.5;
+			
+			noiseAtPosition *= 3;
+			//sin( position.x * position.y + time / 3.0 
+			float blue = sin(x*downScale + z*downScale * zVar / 2);
+			if(blue < 0) blue *= -1;
+			
+			
+			sprite.color = ccc3( fabs(cos(noiseAtPosition)) * 255, fabs(sin(noiseAtPosition)) * 255,  blue * 255);
 			anIterator++;
 		}
 	}
