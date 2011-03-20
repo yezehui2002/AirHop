@@ -39,7 +39,7 @@
 
 - (void) applicationDidFinishLaunching:(UIApplication*)application
 {
-	[[UIApplication sharedApplication] setStatusBarOrientation: UIInterfaceOrientationLandscapeRight];
+//	[[UIApplication sharedApplication] setStatusBarOrientation: UIInterfaceOrientationLandscapeRight];
 	
 	self.window.rootViewController = self.viewController;
 	[self.window makeKeyAndVisible];

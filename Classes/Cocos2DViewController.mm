@@ -57,7 +57,6 @@
 	//
 	
 	NSLog(@"GAME_AUTOROTATION %i", GAME_AUTOROTATION);
-	return ( UIInterfaceOrientationIsLandscape( interfaceOrientation ) );
 	
 #if GAME_AUTOROTATION==kGameAutorotationNone
 	//
@@ -73,12 +72,12 @@
 	//
 	// Sample: Autorotate only in landscape mode
 	//
-//	if( interfaceOrientation == UIInterfaceOrientationLandscapeLeft ) {
-//		[[CCDirector sharedDirector] setDeviceOrientation: kCCDeviceOrientationLandscapeRight];
-//	} else if( interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-//		[[CCDirector sharedDirector] setDeviceOrientation: UIInterfaceOrientationLandscapeRight];
-//	}
-//	
+	if( interfaceOrientation == UIInterfaceOrientationLandscapeLeft ) {
+		[[CCDirector sharedDirector] setDeviceOrientation: kCCDeviceOrientationLandscapeRight];
+	} else if( interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+		[[CCDirector sharedDirector] setDeviceOrientation: UIInterfaceOrientationLandscapeRight];
+	}
+	
 	// Since this method should return YES in at least 1 orientation, 
 	// we return YES only in the Portrait orientation
 	return ( interfaceOrientation == UIInterfaceOrientationPortrait );
@@ -103,9 +102,9 @@
 	return NO;
 }
 
--(void) initCocos2DWithFrame:(CGRect)aFrame
+-(void) initCocos2DInView:(UIView*)aView
 {
-	_cocosFrame = aFrame;
+	_parentView = aView;
 	
 	/*
 	 initCocos2DWithFrame
@@ -120,8 +119,6 @@
 	if( ! [CCDirector setDirectorType:kCCDirectorTypeDisplayLink] )
 		[CCDirector setDirectorType:kCCDirectorTypeDefault];
 	
-	[director setDeviceOrientation:kCCDeviceOrientationLandscapeRight];
-	
 	
 	//
 	// Create the EAGLView manually
@@ -129,7 +126,8 @@
 	//	2. depth format of 0 bit. Use 16 or 24 bit for 3d effects, like CCPageTurnTransition
 	//
 	//
-	EAGLView *glView = [EAGLView viewWithFrame: aFrame
+	NSLog(@"ViewFrame: %@", NSStringFromCGRect( _parentView.frame) );
+	EAGLView *glView = [EAGLView viewWithFrame: _parentView.frame
 								   pixelFormat:kEAGLColorFormatRGB565	// kEAGLColorFormatRGBA8
 								   depthFormat:0						// GL_DEPTH_COMPONENT16_OES
 						];
@@ -150,11 +148,11 @@
 	// By default, this template only supports Landscape orientations.
 	// Edit the RootViewController.m file to edit the supported orientations.
 	//
-//#if GAME_AUTOROTATION == kGameAutorotationUIViewController
-//	[director setDeviceOrientation:kCCDeviceOrientationPortrait];
-//#else
-//	[director setDeviceOrientation:kCCDeviceOrientationLandscapeRight];
-//#endif
+#if GAME_AUTOROTATION == kGameAutorotationUIViewController
+	[director setDeviceOrientation:kCCDeviceOrientationPortrait];
+#else
+	[director setDeviceOrientation:kCCDeviceOrientationLandscapeRight];
+#endif
 		
 	[director setAnimationInterval:1.0/60];
 	[director setDisplayFPS:NO];
@@ -180,7 +178,7 @@
 	self._currentLayer = aHelloWorldScene;						// Store reference
 	[scene addChild: aHelloWorldScene];							// add layer as a child to scene
 		
-	[aHelloWorldScene initializeWorldWithFrame: aFrame ];
+	[aHelloWorldScene initializeWorldWithFrame: _parentView.frame ];
 	
 	// Run the scene containing our ... scene!
 	[[CCDirector sharedDirector] runWithScene: scene];
@@ -193,12 +191,14 @@
 #if GAME_AUTOROTATION == kGameAutorotationUIViewController
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-	return;
+	NSLog(@"willRotateToInterfaceOrientation %i", toInterfaceOrientation);
+
+	
 	//
 	// Assuming that the main window has the size of the screen
 	// BUG: This won't work if the EAGLView is not fullscreen
 	///
-	CGRect screenRect = _cocosFrame;//[[UIScreen mainScreen] bounds];
+	CGRect screenRect = [[UIScreen mainScreen] bounds];
 	CGRect rect;
 	
 	if(toInterfaceOrientation == UIInterfaceOrientationPortrait || toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)		

@@ -19,7 +19,8 @@
 @interface Cocos2DViewController : UIViewController 
 {
 	// DATA
-	CGRect				_cocosFrame;
+	UIView*				_parentView;
+	
 	// Objects
 	HelloWorldLayer*	_currentLayer;
 	id<CocosViewControllerDelegateProtocol> delegate_;
@@ -28,5 +29,5 @@
 @property(nonatomic, retain) HelloWorldLayer* _currentLayer;
 @property(nonatomic, assign) id<CocosViewControllerDelegateProtocol> delegate;
 
--(void) initCocos2DWithFrame:(CGRect)aFrame;
+-(void) initCocos2DInView:(UIView*)aView;
 @end

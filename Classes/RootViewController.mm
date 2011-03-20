@@ -9,7 +9,8 @@
 #import "RootViewController.h"
 
 @implementation RootViewController
-@synthesize _toolbar, _cocosViewController;
+@synthesize _toolbar;
+@synthesize _cocosView, _cocosViewController;
 
 
 /*
@@ -34,32 +35,51 @@
  - (void)viewDidLoad 
 {
 	[super viewDidLoad];
-		
+	
 	Cocos2DViewController* aCocosViewController = [[Cocos2DViewController alloc] initWithNibName:nil bundle:nil];
 	self._cocosViewController = aCocosViewController;
 	self._cocosViewController.delegate = self;
-	
 	[aCocosViewController release];
 	
 	// Create the frame, notice that our width and height are reversed because technically we didn't rotate yet.
 	// So we use the width for the height and subtract the toolbarsize
-	int statusBarSize = 20;	// MAGIC NUMBER for statusbar size
+//	int statusBarSize = 20;	// MAGIC NUMBER for statusbar size
 	//
-	CGRect cocos2dFrame = CGRectMake(-300, -300, self.view.frame.size.width+300, self.view.frame.size.height+300);
+//	CGRect cocos2dFrame = self.view.frame;//CGRectMake(-300, -300, self.view.frame.size.width+300, self.view.frame.size.height+300);
+//	cocos2dFrame.origin.y -= statusBarSize;
+//	cocos2dFrame.size.height -= self._toolbar.frame.size.height;
 
-	[self.view addSubview: aCocosViewController.view];
-	[aCocosViewController initCocos2DWithFrame: cocos2dFrame];
+	[self.view addSubview: aCocosViewController.view];	
+	[aCocosViewController initCocos2DInView: _cocosView];
  }
 
+
+#pragma mark UIResponder
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event 
+{
+	NSLog(@"touchesBegan %@", [touches anyObject] );
+}
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	NSLog(@"touchesMoved %@", [touches anyObject] );
+}
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	NSLog(@"touchesEnded %@", [touches anyObject] );
+}
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	NSLog(@"touchesCancelled %@", [touches anyObject] );
+}
 
  // Override to allow orientations other than the default portrait orientation.
- - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	 
-	 BOOL shouldRotate = (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
-	 NSLog(@"ShouldRotate %i", shouldRotate);
-	 
-	 return shouldRotate;
- }
+// - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+//	 
+//	 BOOL shouldRotate = (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+//	 NSLog(@"ShouldRotate %i", shouldRotate);
+//	 
+//	 return shouldRotate;
+// }
 
 #pragma mark Show/Hide UIToolbar
 -(void) toggleControls
