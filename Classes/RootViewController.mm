@@ -31,20 +31,24 @@
 
 
  // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
- - (void)viewDidLoad {
-	 [super viewDidLoad];
-	 
-	 Cocos2DViewController* aCocosViewController = [[Cocos2DViewController alloc] initWithNibName:nil bundle:nil];
-	 self._cocosViewController = aCocosViewController;
-	 [aCocosViewController release];
+ - (void)viewDidLoad 
+{
+	[super viewDidLoad];
+		
+	Cocos2DViewController* aCocosViewController = [[Cocos2DViewController alloc] initWithNibName:nil bundle:nil];
+	self._cocosViewController = aCocosViewController;
+	self._cocosViewController.delegate = self;
 	
-	 // Create the frame, notice that our width and height are reversed because technically we didn't rotate yet.
-	 // So we use the width for the height and subtract the toolbarsize
-	 int statusBarSize = 20;
-	 CGRect cocos2dFrame = CGRectMake(0, 0, self.view.frame.size.height+statusBarSize, self.view.frame.size.width-self._toolbar.frame.size.height-statusBarSize);
-	 
-	 [self.view addSubview: aCocosViewController.view];
-	 [aCocosViewController initCocos2DWithFrame: cocos2dFrame];
+	[aCocosViewController release];
+	
+	// Create the frame, notice that our width and height are reversed because technically we didn't rotate yet.
+	// So we use the width for the height and subtract the toolbarsize
+	int statusBarSize = 20;	// MAGIC NUMBER for statusbar size
+	//
+	CGRect cocos2dFrame = CGRectMake(-300, -300, self.view.frame.size.width+300, self.view.frame.size.height+300);
+
+	[self.view addSubview: aCocosViewController.view];
+	[aCocosViewController initCocos2DWithFrame: cocos2dFrame];
  }
 
 
@@ -56,6 +60,21 @@
 	 
 	 return shouldRotate;
  }
+
+#pragma mark Show/Hide UIToolbar
+-(void) toggleControls
+{
+	
+}
+-(void) showControls
+{
+	
+}
+
+-(void) hideControls
+{
+//	_toolbar.enabled = NO; 
+}
 
 -(IBAction) redrawGrid {
 	[self._cocosViewController._currentLayer debugCreatePerlinGrid];

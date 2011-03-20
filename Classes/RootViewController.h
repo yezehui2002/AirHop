@@ -10,12 +10,22 @@
 #import "Cocos2DViewController.h"
 
 
-@interface RootViewController : UIViewController {
+@interface RootViewController : UIViewController <CocosViewControllerDelegateProtocol>
+{
 	UIToolbar*					_toolbar;
 	Cocos2DViewController*		_cocosViewController;
+	
+	// State
+	BOOL						_isShowingControls;
 }
 @property(nonatomic, retain) IBOutlet UIToolbar*		_toolbar;
 @property(nonatomic, retain) Cocos2DViewController*		_cocosViewController;
 
+// Show or hide the controls - should call toggle and internal mechanism will call either of the accompanying functions
+-(void) toggleControls;
+-(void) showControls;
+-(void) hideControls;
+
+// DEBUG
 -(IBAction) redrawGrid;
 @end

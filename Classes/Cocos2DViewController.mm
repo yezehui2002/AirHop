@@ -20,6 +20,7 @@
 
 @implementation Cocos2DViewController
 @synthesize _currentLayer;
+@synthesize delegate=delegate_;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -55,13 +56,16 @@
 	//    - A bit slower, but the UiKit objects are placed in the right place
 	//
 	
+	NSLog(@"GAME_AUTOROTATION %i", GAME_AUTOROTATION);
+	return ( UIInterfaceOrientationIsLandscape( interfaceOrientation ) );
+	
 #if GAME_AUTOROTATION==kGameAutorotationNone
 	//
 	// EAGLView won't be autorotated.
 	// Since this method should return YES in at least 1 orientation, 
 	// we return YES only in the Portrait orientation
 	//
-	return ( interfaceOrientation == UIInterfaceOrientationPortrait );
+	return ( interfaceOrientation == UIInterfaceOrientationLandscapeRight );
 	
 #elif GAME_AUTOROTATION==kGameAutorotationCCDirector
 	//
@@ -69,12 +73,12 @@
 	//
 	// Sample: Autorotate only in landscape mode
 	//
-	if( interfaceOrientation == UIInterfaceOrientationLandscapeLeft ) {
-		[[CCDirector sharedDirector] setDeviceOrientation: kCCDeviceOrientationLandscapeRight];
-	} else if( interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
-		[[CCDirector sharedDirector] setDeviceOrientation: kCCDeviceOrientationLandscapeLeft];
-	}
-	
+//	if( interfaceOrientation == UIInterfaceOrientationLandscapeLeft ) {
+//		[[CCDirector sharedDirector] setDeviceOrientation: kCCDeviceOrientationLandscapeRight];
+//	} else if( interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+//		[[CCDirector sharedDirector] setDeviceOrientation: UIInterfaceOrientationLandscapeRight];
+//	}
+//	
 	// Since this method should return YES in at least 1 orientation, 
 	// we return YES only in the Portrait orientation
 	return ( interfaceOrientation == UIInterfaceOrientationPortrait );
@@ -101,6 +105,8 @@
 
 -(void) initCocos2DWithFrame:(CGRect)aFrame
 {
+	_cocosFrame = aFrame;
+	
 	/*
 	 initCocos2DWithFrame
 	 */
@@ -113,6 +119,8 @@
 	// if it fails (SDK < 3.1) use the default director
 	if( ! [CCDirector setDirectorType:kCCDirectorTypeDisplayLink] )
 		[CCDirector setDirectorType:kCCDirectorTypeDefault];
+	
+	[director setDeviceOrientation:kCCDeviceOrientationLandscapeRight];
 	
 	
 	//
@@ -129,9 +137,9 @@
 	// attach the openglView to the director
 	[director setOpenGLView:glView];
 	
-		// Enables High Res mode (Retina Display) on iPhone 4 and maintains low res on all other devices
-		if( ! [director enableRetinaDisplay:YES] )
-			CCLOG(@"Retina Display Not supported");
+	// Enables High Res mode (Retina Display) on iPhone 4 and maintains low res on all other devices
+	if( ! [director enableRetinaDisplay:YES] )
+		CCLOG(@"Retina Display Not supported");
 	
 	//
 	// VERY IMPORTANT:
@@ -142,14 +150,12 @@
 	// By default, this template only supports Landscape orientations.
 	// Edit the RootViewController.m file to edit the supported orientations.
 	//
-#if GAME_AUTOROTATION == kGameAutorotationUIViewController
-	[director setDeviceOrientation:kCCDeviceOrientationPortrait];
-#else
-	[director setDeviceOrientation:kCCDeviceOrientationLandscapeLeft];
-#endif
-	
-//	[director setDeviceOrientation:kCCDeviceOrientationLandscapeLeft];
-	
+//#if GAME_AUTOROTATION == kGameAutorotationUIViewController
+//	[director setDeviceOrientation:kCCDeviceOrientationPortrait];
+//#else
+//	[director setDeviceOrientation:kCCDeviceOrientationLandscapeRight];
+//#endif
+		
 	[director setAnimationInterval:1.0/60];
 	[director setDisplayFPS:NO];
 	
@@ -192,7 +198,7 @@
 	// Assuming that the main window has the size of the screen
 	// BUG: This won't work if the EAGLView is not fullscreen
 	///
-	CGRect screenRect = [[UIScreen mainScreen] bounds];
+	CGRect screenRect = _cocosFrame;//[[UIScreen mainScreen] bounds];
 	CGRect rect;
 	
 	if(toInterfaceOrientation == UIInterfaceOrientationPortrait || toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)		
@@ -225,10 +231,12 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+	self.delegate = nil;
 }
 
 
 - (void)dealloc {
+	self.delegate = nil;
     [super dealloc];
 }
 

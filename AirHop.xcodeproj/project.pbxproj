@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1F3B9A2D0EF2145700286867 /* AirHopAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1F3B9A2B0EF2145700286867 /* AirHopAppDelegate.mm */; };
+		489C67041335C20400315FA2 /* icon_showcontrols.png in Resources */ = {isa = PBXBuildFile; fileRef = 489C67021335C20400315FA2 /* icon_showcontrols.png */; };
+		489C67051335C20400315FA2 /* icon_showcontrols-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = 489C67031335C20400315FA2 /* icon_showcontrols-hd.png */; };
+		489C67211335C68D00315FA2 /* ToggleControlsCocosButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 489C67201335C68D00315FA2 /* ToggleControlsCocosButton.m */; };
 		504DFC0610AF1414006D82FE /* CLScoreServerPost.h in Headers */ = {isa = PBXBuildFile; fileRef = 504DFC0010AF1414006D82FE /* CLScoreServerPost.h */; };
 		504DFC0710AF1414006D82FE /* CLScoreServerPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 504DFC0110AF1414006D82FE /* CLScoreServerPost.m */; };
 		504DFC0810AF1414006D82FE /* CLScoreServerRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 504DFC0210AF1414006D82FE /* CLScoreServerRequest.h */; };
@@ -346,6 +349,10 @@
 		1F3B9A2C0EF2145700286867 /* AirHopAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AirHopAppDelegate.h; path = Classes/AirHopAppDelegate.h; sourceTree = "<group>"; };
 		1F3B9A820EF2151B00286867 /* AirHop_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirHop_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		489C67021335C20400315FA2 /* icon_showcontrols.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_showcontrols.png; path = UI/icon_showcontrols.png; sourceTree = "<group>"; };
+		489C67031335C20400315FA2 /* icon_showcontrols-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_showcontrols-hd.png"; path = "UI/icon_showcontrols-hd.png"; sourceTree = "<group>"; };
+		489C671F1335C68D00315FA2 /* ToggleControlsCocosButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleControlsCocosButton.h; sourceTree = "<group>"; };
+		489C67201335C68D00315FA2 /* ToggleControlsCocosButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToggleControlsCocosButton.m; sourceTree = "<group>"; };
 		504DFC0010AF1414006D82FE /* CLScoreServerPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLScoreServerPost.h; sourceTree = "<group>"; };
 		504DFC0110AF1414006D82FE /* CLScoreServerPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLScoreServerPost.m; sourceTree = "<group>"; };
 		504DFC0210AF1414006D82FE /* CLScoreServerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLScoreServerRequest.h; sourceTree = "<group>"; };
@@ -774,8 +781,19 @@
 				ED634E4C1334383900915BCA /* Cocos2DViewController.h */,
 				ED634E4D1334383900915BCA /* Cocos2DViewController.mm */,
 				ED634E4E1334383900915BCA /* Cocos2DViewController.xib */,
+				489C671F1335C68D00315FA2 /* ToggleControlsCocosButton.h */,
+				489C67201335C68D00315FA2 /* ToggleControlsCocosButton.m */,
 			);
 			path = Classes;
+			sourceTree = "<group>";
+		};
+		489C67001335C1C700315FA2 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				489C67021335C20400315FA2 /* icon_showcontrols.png */,
+				489C67031335C20400315FA2 /* icon_showcontrols-hd.png */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 		504DFBFF10AF1414006D82FE /* cocoslive */ = {
@@ -1012,6 +1030,7 @@
 		50F4144210692EE7002A0D5E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				489C67001335C1C700315FA2 /* UI */,
 				ED634F8B13345AD800915BCA /* cocos */,
 				E02BBA10126CC29D006E46A2 /* iTunesArtwork */,
 				E02BB53E126CA5DA006E46A2 /* Icon@2x.png */,
@@ -1506,6 +1525,8 @@
 				ED634E501334383900915BCA /* Cocos2DViewController.xib in Resources */,
 				ED634F8D13345AEB00915BCA /* balloon-hd.png in Resources */,
 				ED634FAC13345C7700915BCA /* balloon.png in Resources */,
+				489C67041335C20400315FA2 /* icon_showcontrols.png in Resources */,
+				489C67051335C20400315FA2 /* icon_showcontrols-hd.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1525,6 +1546,7 @@
 				ED635082133470B000915BCA /* SKMathPerlin.m in Sources */,
 				ED635083133470B000915BCA /* SKMathVector.m in Sources */,
 				ED6352941334956D00915BCA /* MSAPerlin.cpp in Sources */,
+				489C67211335C68D00315FA2 /* ToggleControlsCocosButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

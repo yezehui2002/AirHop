@@ -44,8 +44,6 @@ enum {
 		cPerlinFrequency	= 0.05f;
 		cPerlinPersistence	= 0.2f;
 		
-		
-		
 //		[self setupNoise];
 	}
 	return self;
@@ -137,16 +135,24 @@ enum {
 	groundBody->CreateFixture(&groundBox,0);
 }
 
+-(void) setupGlobalControls
+{
+	ToggleControlsCocosButton* aToggleButton = [ToggleControlsCocosButton spriteWithFile:@"icon_showcontrols-hd.png"];
+	aToggleButton.position = ccp(150, 50);
+	[self addChild:aToggleButton];
+}
+
 -(void) initializeWorldWithFrame:(CGRect)aFrame
 {
 	CCLOG(@"Screen width %0.2f screen height %0.2f",aFrame.size.width, aFrame.size.height);
 	[self setupBox2DWithFrame:aFrame];
 	[self debugCreatePerlinGrid];
+	[self setupGlobalControls];
 	[self schedule: @selector(tick:)];
 }
 
 -(void) debugCreatePerlinGrid
-{
+{	
 	cPerlinFrequency += 0.001f;
 	[self setupNoise];
 	[self removeAllChildrenWithCleanup:YES];
@@ -262,6 +268,8 @@ enum {
 -(void) tick: (ccTime) dt
 {
 	
+//	CCCamera* sceneCamera = self.camera;
+	
 	
 	//It is recommended that a fixed time step is used with Box2D for stability
 	//of the simulation, however, we are using a variable time step here.
@@ -292,7 +300,6 @@ enum {
 	static float zVar = 0.0;
 	static float zprimeVar = 0.0f;
 	zVar += 0.005;
-	
 	
 	
 	NSUInteger x,z;
@@ -329,6 +336,21 @@ enum {
 		}
 	}
 }
+
+- (BOOL)ccTouchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+{	
+	CGPoint point = [touch locationInView: [touch view]];
+	point  = [[CCDirector sharedDirector] convertToGL:point];
+	
+	NSLog(@">>>> NodeSpace: %@ | ViewSpace: %@ | ContainsPoint: %i", NSStringFromCGPoint(point), NSStringFromCGPoint([touch locationInView: [touch view]]), CGRectContainsPoint([self boundingBox], point) );
+	
+	if( CGRectContainsPoint([self boundingBox], point ) == NO ) {
+		return NO;
+	}
+	
+	return YES;
+}
+
 
 - (void)ccTouchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {

@@ -13,6 +13,7 @@
 #import "GLES-Render.h"
 #import "SKMathPerlin.h"
 #import "MSAPerlin.h"
+#import "ToggleControlsCocosButton.h"
 
 #define cMapWidth 480
 #define cMapHeight 320
