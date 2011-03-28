@@ -342,8 +342,8 @@
 
 /* Begin PBXFileReference section */
 		1D6058910D05DD3D006BFB54 /* AirHop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirHop.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1F3B9A2B0EF2145700286867 /* AirHopAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AirHopAppDelegate.mm; path = Classes/AirHopAppDelegate.mm; sourceTree = "<group>"; };
-		1F3B9A2C0EF2145700286867 /* AirHopAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AirHopAppDelegate.h; path = Classes/AirHopAppDelegate.h; sourceTree = "<group>"; };
+		1F3B9A2B0EF2145700286867 /* AirHopAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AirHopAppDelegate.mm; sourceTree = "<group>"; };
+		1F3B9A2C0EF2145700286867 /* AirHopAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirHopAppDelegate.h; sourceTree = "<group>"; };
 		1F3B9A820EF2151B00286867 /* AirHop_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirHop_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		504DFC0010AF1414006D82FE /* CLScoreServerPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLScoreServerPost.h; sourceTree = "<group>"; };
@@ -467,8 +467,8 @@
 		50F41321106926B2002A0D5E /* CJSONScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONScanner.m; sourceTree = "<group>"; };
 		50F41322106926B2002A0D5E /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
 		50F41323106926B2002A0D5E /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
-		50F4143710692D7D002A0D5E /* GLES-Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GLES-Render.h"; sourceTree = "<group>"; };
-		50F4143810692D7D002A0D5E /* GLES-Render.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "GLES-Render.mm"; sourceTree = "<group>"; };
+		50F4143710692D7D002A0D5E /* GLES-Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GLES-Render.h"; path = "Classes/GLES-Render.h"; sourceTree = "<group>"; };
+		50F4143810692D7D002A0D5E /* GLES-Render.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = "GLES-Render.mm"; path = "Classes/GLES-Render.mm"; sourceTree = "<group>"; };
 		50F4144310692EE7002A0D5E /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blocks.png; sourceTree = "<group>"; };
 		50F4144410692EE7002A0D5E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		50F4144510692EE7002A0D5E /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fps_images.png; sourceTree = "<group>"; };
@@ -736,8 +736,6 @@
 			isa = PBXGroup;
 			children = (
 				ED63507D133470AB00915BCA /* library */,
-				1F3B9A2C0EF2145700286867 /* AirHopAppDelegate.h */,
-				1F3B9A2B0EF2145700286867 /* AirHopAppDelegate.mm */,
 				1F3B9A820EF2151B00286867 /* AirHop_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -764,8 +762,8 @@
 			isa = PBXGroup;
 			children = (
 				E0F81061120A17DF005866B8 /* GameConfig.h */,
-				50F4143710692D7D002A0D5E /* GLES-Render.h */,
-				50F4143810692D7D002A0D5E /* GLES-Render.mm */,
+				1F3B9A2C0EF2145700286867 /* AirHopAppDelegate.h */,
+				1F3B9A2B0EF2145700286867 /* AirHopAppDelegate.mm */,
 				506EDC2F102F528A00A389B3 /* HelloWorldLayer.h */,
 				506EDC30102F528A00A389B3 /* HelloWorldLayer.mm */,
 				E0F81062120A17DF005866B8 /* RootViewController.h */,
@@ -1248,6 +1246,8 @@
 			isa = PBXGroup;
 			children = (
 				ED6350CF1334733000915BCA /* perlinnoise */,
+				50F4143710692D7D002A0D5E /* GLES-Render.h */,
+				50F4143810692D7D002A0D5E /* GLES-Render.mm */,
 				ED6352921334956D00915BCA /* MSAPerlin.h */,
 				ED6352931334956D00915BCA /* MSAPerlin.cpp */,
 			);

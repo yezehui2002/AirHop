@@ -67,9 +67,9 @@ enum {
 	
 	// Generate 2D noise map
 	NSUInteger x, z;
-	for (x = 0; x < cMapWidth; x++) 
+	for (x = 0; x < _frame.size.width; x++) 
 	{
-		for (z = 0; z < cMapHeight; z++) 
+		for (z = 0; z < _frame.size.height; z++) 
 		{
 			map[x][z] = [perlin perlinNoise2DX:x Y:z];
 			
@@ -82,6 +82,7 @@ enum {
 
 -(void) setupBox2DWithFrame:(CGRect)aFrame
 {
+	NSLog(@"Frame %@", NSStringFromCGRect( aFrame ) );
 	// Define the gravity vector.
 	b2Vec2 gravity;
 	gravity.Set(0.0f, -10.0f);
@@ -140,6 +141,8 @@ enum {
 -(void) initializeWorldWithFrame:(CGRect)aFrame
 {
 	CCLOG(@"Screen width %0.2f screen height %0.2f",aFrame.size.width, aFrame.size.height);
+	
+	_frame = aFrame;
 	[self setupBox2DWithFrame:aFrame];
 	[self debugCreatePerlinGrid];
 	[self schedule: @selector(tick:)];
@@ -147,6 +150,7 @@ enum {
 
 -(void) debugCreatePerlinGrid
 {
+	
 	cPerlinFrequency += 0.001f;
 	[self setupNoise];
 	[self removeAllChildrenWithCleanup:YES];
@@ -160,13 +164,13 @@ enum {
 	NSUInteger x,z;
 	NSUInteger spacing = 20;
 	NSUInteger anIterator = 0;
-	
+
 	/*
 	 _msaNoise->get(0.4f);
 	 */
-	for (x = 0; x < cMapWidth; x+=spacing) 
+	for (x = 0; x < _frame.size.width+spacing; x+=spacing) 
 	{
-		for (z = 0; z < cMapHeight; z+=spacing) 
+		for (z = 0; z < _frame.size.height; z+=spacing) 
 		{
 			// Create a new sprite
 			CCSpriteBatchNode *batch = (CCSpriteBatchNode*) [self getChildByTag:kTagBatchNode];
@@ -174,13 +178,13 @@ enum {
 			// We have a 64x64 sprite sheet with 4 different 32x32 images.  The following code is just randomly picking one of the images
 			int idx = (CCRANDOM_0_1() > .5 ? 0:1);
 			int idy = (CCRANDOM_0_1() > .5 ? 0:1);
-			CCSprite *sprite = [CCSprite spriteWithBatchNode:batch rect:CGRectMake(32 * idx,32 * idy,32,32)];
+			CCSprite *sprite = [CCSprite spriteWithBatchNode:batch rect:CGRectMake(32 * idx, 32 * idy, 32, 32)];
 			[batch addChild:sprite];
 //			CCSprite *sprite = [CCSprite spriteWithFile:@"balloon.png"];
 //			[self addChild:sprite];
 			
 			// Position at X,Y + a magic number buffer
-			sprite.position = ccp( x+sprite.contentSize.width*0.5, z );
+			sprite.position = ccp( x, z );
 			sprite.tag = anIterator;
 			
 //			CGFloat noiseAtPosition = map[x][z];
@@ -192,7 +196,7 @@ enum {
 				NSLog(@"z: %f", noiseAtPosition);
 			}
 			
-			sprite.scale = noiseAtPosition;
+			//sprite.scale = noiseAtPosition;
 			anIterator++;
 		}
 	}
@@ -231,7 +235,7 @@ enum {
 	//just randomly picking one of the images
 	int idx = (CCRANDOM_0_1() > .5 ? 0:1);
 	int idy = (CCRANDOM_0_1() > .5 ? 0:1);
-	CCSprite *sprite = [CCSprite spriteWithBatchNode:batch rect:CGRectMake(32 * idx,32 * idy,32,32)];
+	CCSprite *sprite = [CCSprite spriteWithBatchNode:batch rect:CGRectMake(32 * idx, 32 * idy, 32, 32)];
 	[batch addChild:sprite];
 	
 	sprite.position = ccp( p.x, p.y);
@@ -287,20 +291,17 @@ enum {
 		}	
 	}
 	
-	
 	// UPDATE PERLIN
 	static float zVar = 0.0;
 	static float zprimeVar = 0.0f;
 	zVar += 0.005;
-	
-	
-	
+		
 	NSUInteger x,z;
 	NSUInteger spacing = 20;
 	NSUInteger anIterator = 0;
-	for (x = 0; x < cMapWidth; x+=spacing) 
+	for (x = 0; x < _frame.size.width; x+=spacing) 
 	{
-		for (z = 0; z < cMapHeight; z+=spacing) 
+		for (z = 0; z < _frame.size.height; z+=spacing) 
 		{
 			//zprimeVar += 0.000005;
 			//			// Create a new sprite

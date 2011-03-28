@@ -37,22 +37,34 @@
 	 Cocos2DViewController* aCocosViewController = [[Cocos2DViewController alloc] initWithNibName:nil bundle:nil];
 	 self._cocosViewController = aCocosViewController;
 	 [aCocosViewController release];
-	
-	 // Create the frame, notice that our width and height are reversed because technically we didn't rotate yet.
-	 // So we use the width for the height and subtract the toolbarsize
-	 int statusBarSize = 20;
-	 CGRect cocos2dFrame = CGRectMake(0, 0, self.view.frame.size.height+statusBarSize, self.view.frame.size.width-self._toolbar.frame.size.height-statusBarSize);
 	 
 	 [self.view addSubview: aCocosViewController.view];
-	 [aCocosViewController initCocos2DWithFrame: cocos2dFrame];
+	 [aCocosViewController initCocos2DWithFrame: aCocosViewController.view.frame ];
  }
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	NSLog(@"TouchesBegan %@", [touches anyObject] );
+}
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	NSLog(@"touchesMoved %@", [touches anyObject] );
+}
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	NSLog(@"touchesEnded %@", [touches anyObject] );
+}
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+	NSLog(@"touchesCancelled %@", [touches anyObject] );
+}
 
 
  // Override to allow orientations other than the default portrait orientation.
  - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	 
-	 BOOL shouldRotate = (interfaceOrientation == UIInterfaceOrientationLandscapeRight);
-	 NSLog(@"ShouldRotate %i", shouldRotate);
+	 BOOL shouldRotate = (interfaceOrientation == UIInterfaceOrientationPortrait);
+	 NSLog(@"ShouldRotate %i | %i", shouldRotate, interfaceOrientation);
 	 
 	 return shouldRotate;
  }

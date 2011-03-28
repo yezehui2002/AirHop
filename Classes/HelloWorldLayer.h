@@ -20,12 +20,13 @@
 // HelloWorldLayer
 @interface HelloWorldLayer : CCLayer
 {
+	CGRect				_frame;
 	b2World*			world;
 	GLESDebugDraw*		m_debugDraw;
 	
 	CCSpriteBatchNode*	_batch;
 	
-	MSA::Perlin*				_msaNoise;
+	MSA::Perlin*		_msaNoise;
 	
 	// Noise properties
 	int					cPerlinOctaves;
